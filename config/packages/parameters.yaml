@@ -1,0 +1,2 @@
+parameters:
+  app.database.url: '%env(DATABASE_URL)%'

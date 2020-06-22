@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: postgresql
+
+  php:
+    container_name: php
+    build:
+      context: .docker/php-fpm
+    volumes:
+      - ./:/var/www
+      - .docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+    environment:
+      DATABASE_URL: "postgres://postgresql:postgresql@postgres:5432/contest_simulator"
+    links:
+      - postgres
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .docker/nginx
+    volumes:
+      - ./:/var/www
+      - .docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - .docker/nginx/sites/:/etc/nginx/sites-available
+      - .docker/nginx/conf.d/:/etc/nginx/conf.d
+      - .docker/logs:/var/log
+    depends_on:
+      - php
+    ports:
+      - "80:80"
