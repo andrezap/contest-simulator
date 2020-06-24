@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Contestant\Contestant"
+            table="contestant">
+
+        <id name="id" column="id" type="uuid">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="genderStrength" type="json" nullable="false"/>
+
+        <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="contestant"/>
+
+        <many-to-one field="contest" target-entity="App\Domain\Contest\Contest" inversed-by="contestants">
+            <join-column name="contest_id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
