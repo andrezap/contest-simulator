@@ -2,6 +2,11 @@
 
 {% block body %}
     <main role="main" class="inner cover">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
         <h1 class="cover-heading">Singing Contest Simulator</h1>
         <p class="lead">
             <a href="{{ path('contest') }}" class="btn btn-lg btn-secondary">Let's start</a>

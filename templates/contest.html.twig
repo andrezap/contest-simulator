@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Contest created!</h1>
+    <p class="lead">
+      The contest consist of 6 rounds, the top scoring will get a special place in our hall of fame!
+    </p>
+    <p class="lead">
+      <a href="{{ path('contest_round_play', {id: contest.id}) }}" class="btn btn-lg btn-secondary">Run first round</a>
+    </p>
+  </main>
+{% endblock body %}

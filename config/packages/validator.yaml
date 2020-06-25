@@ -1,0 +1,6 @@
+framework:
+    validation:
+        enable_annotations: false
+        mapping:
+            paths:
+                - '%kernel.project_dir%/app/validator'

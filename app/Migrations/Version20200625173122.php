@@ -7,11 +7,11 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20200623232051 extends AbstractMigration
+final class Version20200625173122 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Initial schema';
     }
 
     public function up(Schema $schema) : void
@@ -22,7 +22,7 @@ final class Version20200623232051 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN round_contestant.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN round_contestant.contestant_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN round_contestant.round_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE contestant (id UUID NOT NULL, contest_id UUID NOT NULL, gender_strength JSON NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE contestant (id UUID NOT NULL, contest_id UUID NOT NULL, genre_strengths JSON NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_60D3BEE71CD0F0DE ON contestant (contest_id)');
         $this->addSql('COMMENT ON COLUMN contestant.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN contestant.contest_id IS \'(DC2Type:uuid)\'');
@@ -30,7 +30,7 @@ final class Version20200623232051 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C5EEEA341CD0F0DE ON round (contest_id)');
         $this->addSql('COMMENT ON COLUMN round.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN round.contest_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE contest (id UUID NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE contest (id UUID NOT NULL, active BOOLEAN NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN contest.id IS \'(DC2Type:uuid)\'');
         $this->addSql('ALTER TABLE round_contestant ADD CONSTRAINT FK_7B59F893AF70032D FOREIGN KEY (contestant_id) REFERENCES contestant (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE round_contestant ADD CONSTRAINT FK_7B59F893A6005CA0 FOREIGN KEY (round_id) REFERENCES round (id) NOT DEFERRABLE INITIALLY IMMEDIATE');

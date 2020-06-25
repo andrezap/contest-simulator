@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Contest;
 
-use App\Domain\Contestant\Contestant;
-use App\Domain\MusicGenre\MusicGenre;
-use App\Domain\Round\Round;
+use App\Domain\Contestant\ContestantInterface;
+use App\Domain\Judge\JudgeInterface;
+use App\Domain\Round\RoundInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
@@ -16,34 +16,62 @@ class Contest implements ContestInterface
 {
     private UuidInterface $id;
 
-    /** @var Collection|Round[] */
+    /** @var Collection|RoundInterface[] */
     private Collection $rounds;
 
-    /** @var Collection|Contestant[] */
+    /** @var Collection|ContestantInterface[] */
     private Collection $contestants;
+
+    private bool $active;
+
+    /** @var Collection|JudgeInterface */
+    private Collection $judges;
 
     public function __construct()
     {
         $this->id          = Uuid::uuid4();
+        $this->active      = false;
         $this->rounds      = new ArrayCollection();
         $this->contestants = new ArrayCollection();
-        $this->generateContestants();
-        $this->generateRounds();
     }
 
-    public function generateRounds(): void
+    public function id() : UuidInterface
     {
-        $genders = MusicGenre::getEnumerators();
-        \shuffle($genders);
-        for ($i = 0; $i < self::MAX_NUMBER_ROUNDS; $i++) {
-            $this->rounds->add(new Round($i, $genders[$i]));
-        }
+        return $this->id;
     }
 
-    public function generateContestants(): void
+    public function addContestant(ContestantInterface $contestant) : void
     {
-        for ($i = 0; $i < self::MAX_NUMBER_CONTESTANTS; $i++) {
-            $this->contestants->add(new Contestant($this));
-        }
+        $this->contestants->add($contestant);
+    }
+
+    public function addJudge(JudgeInterface $judge) : void
+    {
+        $this->judges->add($judge);
+    }
+
+    public function addRound(RoundInterface $round) : void
+    {
+        $this->rounds->add($round);
+    }
+
+    public function getContestants() : Collection
+    {
+        return $this->contestants;
+    }
+
+    public function start() : void
+    {
+        $this->active = true;
+    }
+
+    public function isDone() : bool
+    {
+        return $this->active === false;
+    }
+
+    public function finish() : void
+    {
+        $this->active = false;
     }
 }

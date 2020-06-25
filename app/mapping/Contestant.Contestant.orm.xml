@@ -9,7 +9,7 @@
             <generator strategy="NONE"/>
         </id>
 
-        <field name="genderStrength" type="json" nullable="false"/>
+        <field name="genreStrengths" type="json" nullable="false"/>
 
         <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="contestant"/>
 

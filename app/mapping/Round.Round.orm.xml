@@ -13,8 +13,14 @@
         <field name="number" type="integer" nullable="false"/>
         <field name="musicGenre" type="string" nullable="false"/>
 
-        <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="round"/>
+        <many-to-one field="contest" target-entity="App\Domain\Contest\Contest" inversed-by="rounds">
+            <join-column name="contest_id" referenced-column-name="id" />
+        </many-to-one>
 
-        <many-to-one field="contest" target-entity="App\Domain\Contest\Contest" inversed-by="round"/>
+        <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="round">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

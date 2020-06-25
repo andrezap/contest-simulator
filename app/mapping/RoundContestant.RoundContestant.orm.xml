@@ -10,13 +10,14 @@
         </id>
 
         <field name="score" type="float" nullable="false"/>
+        <field name="finalScore" type="float" nullable="false"/>
 
         <many-to-one field="contestant" target-entity="App\Domain\Contestant\Contestant" inversed-by="roundsContestant">
             <cascade>
                 <cascade-all/>
             </cascade>
             <join-columns>
-                <join-column name="contestant_id" referenced-column-name="id" />
+                <join-column name="contestant_id" referenced-column-name="id"/>
             </join-columns>
         </many-to-one>
 
@@ -25,7 +26,7 @@
                 <cascade-all/>
             </cascade>
             <join-columns>
-                <join-column name="round_id" referenced-column-name="id" />
+                <join-column name="round_id" referenced-column-name="id"/>
             </join-columns>
         </many-to-one>
     </entity>
