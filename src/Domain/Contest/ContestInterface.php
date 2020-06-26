@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Contest;
 
 use App\Domain\Contestant\ContestantInterface;
-use App\Domain\Judge\JudgeInterface;
 use App\Domain\Round\RoundInterface;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
@@ -20,7 +19,7 @@ interface ContestInterface
 
     public function addContestant(ContestantInterface $contestant) : void;
 
-    public function addJudge(JudgeInterface $judge) : void;
+    public function addJudges(array $judges) : void;
 
     public function addRound(RoundInterface $round) : void;
 
@@ -34,4 +33,6 @@ interface ContestInterface
     public function isDone() : bool;
 
     public function finish() : void;
+
+    public function getJudges() : array;
 }

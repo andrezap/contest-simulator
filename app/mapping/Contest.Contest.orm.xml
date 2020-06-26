@@ -11,6 +11,7 @@
         </id>
 
         <field name="active" type="boolean" nullable="false"/>
+        <field name="judges" type="json" nullable="false"/>
 
         <one-to-many field="rounds" target-entity="App\Domain\Round\Round" mapped-by="contest">
             <cascade>

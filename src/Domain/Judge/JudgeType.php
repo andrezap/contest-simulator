@@ -8,9 +8,17 @@ use MabeEnum\Enum;
 
 class JudgeType extends Enum
 {
-    public const FRIENDLY = 'FRIENDLY';
-    public const HONEST   = 'HONEST';
-    public const MEAN     = 'MEAN';
-    public const RANDOM   = 'RANDOM';
-    public const ROCK     = 'ROCK';
+    public const FRIENDLY = 'Friendly';
+    public const HONEST   = 'Honest';
+    public const MEAN     = 'Mean';
+    public const RANDOM   = 'Random';
+    public const ROCK     = 'Rock';
+
+    public function value(): string
+    {
+        /** @var mixed $value */
+        $value = $this->getValue();
+
+        return (string) $value;
+    }
 }

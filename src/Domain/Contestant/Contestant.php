@@ -26,18 +26,23 @@ class Contestant implements ContestantInterface
 
     private ContestInterface $contest;
 
+    private bool $winner;
+
     public function __construct(ContestInterface $contest)
     {
         $this->id               = Uuid::uuid4();
         $this->contest          = $contest;
+        $this->winner           = false;
         $this->roundsContestant = new ArrayCollection();
         $this->generateGenreStrength();
     }
 
-    private function generateGenreStrength(): void
+    private function generateGenreStrength() : void
     {
         $genres = MusicGenre::getEnumerators();
-        \shuffle($genres);
+
+        shuffle($genres);
+
         $this->genreStrengths = [];
 
         foreach ($genres as $genre) {
@@ -46,12 +51,12 @@ class Contestant implements ContestantInterface
         }
     }
 
-    public function genreStrengths(): array
+    public function genreStrengths() : array
     {
         return $this->genreStrengths;
     }
 
-    public function genreStrength(MusicGenre $musicGenre): float
+    public function genreStrength(MusicGenre $musicGenre) : float
     {
         $contestantGenreStrengths = SearchMultidimensionalArray::searchKey(
             $this->genreStrengths,
@@ -65,7 +70,7 @@ class Contestant implements ContestantInterface
         return $contestantGenreStrengths[$musicGenre->value()];
     }
 
-    public function contest(): ContestInterface
+    public function contest() : ContestInterface
     {
         return $this->contest;
     }

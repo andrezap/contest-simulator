@@ -8,9 +8,11 @@ use App\Domain\Judge\Exception\JudgeNotFound;
 
 class JudgeFactory
 {
-    public static function build(JudgeType $type)
+    private const PATH = 'App\Domain\Judge\\';
+
+    public static function build(JudgeType $type) : JudgeInterface
     {
-        $className = ucfirst($type) . 'Judge';
+        $className = sprintf('%sJudge', self::PATH . ucfirst($type->value()));
 
         if (class_exists($className)) {
             return new $className();

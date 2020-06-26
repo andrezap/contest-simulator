@@ -24,8 +24,8 @@ class Contest implements ContestInterface
 
     private bool $active;
 
-    /** @var Collection|JudgeInterface */
-    private Collection $judges;
+    /** @var JudgeInterface[] */
+    private array $judges;
 
     public function __construct()
     {
@@ -33,6 +33,7 @@ class Contest implements ContestInterface
         $this->active      = false;
         $this->rounds      = new ArrayCollection();
         $this->contestants = new ArrayCollection();
+        $this->judges      = [];
     }
 
     public function id() : UuidInterface
@@ -45,9 +46,9 @@ class Contest implements ContestInterface
         $this->contestants->add($contestant);
     }
 
-    public function addJudge(JudgeInterface $judge) : void
+    public function addJudges(array $judges) : void
     {
-        $this->judges->add($judge);
+        $this->judges = $judges;
     }
 
     public function addRound(RoundInterface $round) : void
@@ -73,5 +74,10 @@ class Contest implements ContestInterface
     public function finish() : void
     {
         $this->active = false;
+    }
+
+    public function getJudges() : array
+    {
+        return $this->judges;
     }
 }

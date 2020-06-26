@@ -7,6 +7,8 @@ namespace App\Domain\Round\Service;
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Contest\Exception\InvalidContestException;
 use App\Domain\Contest\Repository\ContestRepositoryInterface;
+use App\Domain\Judge\JudgeFactory;
+use App\Domain\Judge\JudgeType;
 use App\Domain\Round\Repository\RoundRepositoryInterface;
 use App\Domain\RoundContestant\RoundContestant;
 
@@ -24,25 +26,36 @@ class PlayRound
         $this->roundRepository   = $roundRepository;
     }
 
-    public function execute(ContestInterface $contest): void
+    public function execute(ContestInterface $contest) : void
     {
-        $nextRound = $this->roundRepository->nextRoundForContest($contest);
+        $round = $this->roundRepository->nextRoundForContest($contest);
 
-        if ($nextRound === null || $contest->isDone()) {
+        if ($round === null || $contest->isDone()) {
             throw new InvalidContestException();
         }
 
         foreach ($contest->getContestants() as $contestant) {
-            $roundContestant = new RoundContestant($nextRound, $contestant);
+            $roundContestant = new RoundContestant($round, $contestant);
             $roundContestant->calculateScore();
-            $nextRound->addRoundsContestant($roundContestant);
+            $round->addRoundsContestant($roundContestant);
+
+            $judgeScore = 0;
+            foreach ($contest->getJudges() as $judge) {
+                $judge      = JudgeFactory::build(JudgeType::byValue($judge));
+                $judgeScore += $judge->calculateScore($roundContestant);
+            }
+
+            //missing sick round
+            $roundContestant->setFinalScore($judgeScore);
         }
 
-        if ($nextRound->number() === ContestInterface::MAX_NUMBER_ROUNDS) {
+        $round->finish();
+
+        if ($round->number() === ContestInterface::MAX_NUMBER_ROUNDS) {
             $contest->finish();
         }
 
-        $this->roundRepository->store($nextRound);
+        $this->roundRepository->store($round);
         $this->contestRepository->store($contest);
     }
 }

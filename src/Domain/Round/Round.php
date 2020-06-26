@@ -38,23 +38,28 @@ class Round implements RoundInterface
         $this->contest          = $contest;
     }
 
-    public function contest(): ContestInterface
+    public function contest() : ContestInterface
     {
         return $this->contest;
     }
 
-    public function musicGenre(): MusicGenre
+    public function musicGenre() : MusicGenre
     {
         return MusicGenre::byValue((string) $this->musicGenre);
     }
 
-    public function number(): int
+    public function number() : int
     {
         return $this->number;
     }
 
-    public function addRoundsContestant(RoundContestantInterface $roundsContestant): void
+    public function addRoundsContestant(RoundContestantInterface $roundsContestant) : void
     {
         $this->roundsContestant->add($roundsContestant);
+    }
+
+    public function finish() : void
+    {
+        $this->finished = true;
     }
 }

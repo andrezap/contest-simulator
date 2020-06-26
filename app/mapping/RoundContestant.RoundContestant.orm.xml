@@ -10,7 +10,7 @@
         </id>
 
         <field name="score" type="float" nullable="false"/>
-        <field name="finalScore" type="float" nullable="false"/>
+        <field name="finalScore" type="integer" nullable="false"/>
 
         <many-to-one field="contestant" target-entity="App\Domain\Contestant\Contestant" inversed-by="roundsContestant">
             <cascade>

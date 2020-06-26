@@ -19,7 +19,7 @@ class RoundContestant implements RoundContestantInterface
 
     private float $score;
 
-    private float $finalScore;
+    private int $finalScore;
 
     public function __construct(RoundInterface $round, ContestantInterface $contestant)
     {
@@ -28,15 +28,30 @@ class RoundContestant implements RoundContestantInterface
         $this->contestant = $contestant;
     }
 
-    public function calculateScore(): void
+    public function calculateScore() : void
     {
         $index = \random_int(
-            (int) RoundInterface::SCORE_INDEX_MIN * 10,
-            RoundInterface::SCORE_INDEX_MAX * 10
-        ) / 10;
+                (int) RoundInterface::SCORE_INDEX_MIN * 10,
+                RoundInterface::SCORE_INDEX_MAX * 10
+            ) / 10;
 
         $genreStrength = $this->contestant->genreStrength($this->round->musicGenre());
 
         $this->score = $index * $genreStrength;
+    }
+
+    public function round() : RoundInterface
+    {
+        return $this->round;
+    }
+
+    public function score() : float
+    {
+        return $this->score;
+    }
+
+    public function setFinalScore(int $finalScore) : void
+    {
+        $this->finalScore = $finalScore;
     }
 }
