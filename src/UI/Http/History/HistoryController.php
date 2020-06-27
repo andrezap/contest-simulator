@@ -17,12 +17,10 @@ final class HistoryController extends AbstractController
         $this->contestHistory = $contestHistory;
     }
 
-    public function show() : Response
+    public function show(): Response
     {
         $history = $this->contestHistory->execute();
 
-        return $this->render('history.html.twig', [
-            'history' => $history
-        ]);
+        return $this->render('history.html.twig', ['history' => $history]);
     }
 }

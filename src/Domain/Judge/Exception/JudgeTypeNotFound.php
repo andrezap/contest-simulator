@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Judge\Exception;
 
-final class JudgeNotFound extends \RuntimeException
+final class JudgeTypeNotFound extends \RuntimeException
 {
     public function __construct(?\Throwable $previous = null)
     {

@@ -12,14 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PlaygroundController extends AbstractController
 {
-
-    /**
-     * @var ContestantRepositoryInterface
-     */
     private ContestantRepositoryInterface $contestantRepository;
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $entity;
 
     public function __construct(ContestantRepositoryInterface $contestantRepository, EntityManagerInterface $entity)
@@ -28,11 +21,11 @@ class PlaygroundController extends AbstractController
         $this->entity               = $entity;
     }
 
-    public function play() : Response
+    public function play(): Response
     {
-        $contest = $this->entity->find(Contest::class, '751c2093-1166-4b53-bbab-764b5c755971');
+        $contest = $this->entity->find(Contest::class, 'f928d610-19df-4c49-ada3-b961fc24ec71');
         $winner  = $this->contestantRepository->findHighestScoreForContest($contest);
-        dump($winner);
+        \dump($winner);
 
         return new Response($winner);
     }

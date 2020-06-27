@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Judge;
 
-use App\Domain\Judge\Exception\JudgeNotFound;
+use App\Domain\Judge\Exception\JudgeTypeNotFound;
 
-class JudgeFactory
+final class JudgeFactory
 {
     private const PATH = 'App\Domain\Judge\\';
 
-    public static function build(JudgeType $type) : JudgeInterface
+    public static function build(JudgeType $type): JudgeInterface
     {
-        $className = sprintf('%sJudge', self::PATH . ucfirst($type->value()));
+        $className = \sprintf('%sJudge', self::PATH . \ucfirst($type->value()));
 
-        if (class_exists($className)) {
+        if (\class_exists($className)) {
             return new $className();
         }
 
-        throw new JudgeNotFound();
+        throw new JudgeTypeNotFound();
     }
 }

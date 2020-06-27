@@ -12,6 +12,7 @@
 
         <field name="genreStrengths" type="json" nullable="false"/>
         <field name="winner" type="boolean" nullable="false"/>
+        <field name="name" type="string" nullable="false"/>
 
         <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="contestant"/>
 

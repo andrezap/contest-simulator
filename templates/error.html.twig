@@ -1,1 +1,10 @@
-ERROR
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Sorry, an error happened!</h1>
+    <p class="lead">
+      {{ message }}
+    </p>
+  </main>
+{% endblock body %}

@@ -8,7 +8,7 @@ use App\Domain\RoundContestant\RoundContestantInterface;
 
 interface JudgeInterface
 {
-    public function calculateScore(RoundContestantInterface $roundContestant) : int;
+    public function calculateScore(RoundContestantInterface $roundContestant): int;
 
-    public function name() : string;
+    public function name(): string;
 }

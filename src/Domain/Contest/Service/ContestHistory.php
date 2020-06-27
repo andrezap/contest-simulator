@@ -15,12 +15,11 @@ final class ContestHistory
         $this->contestantRepository = $contestantRepository;
     }
 
-    public function execute() : array
+    public function execute(): array
     {
         $winners      = $this->contestantRepository->findLastFiveWinners();
         $highestScore = $this->contestantRepository->findHighestScoreForAllContests();
 
-        dump($highestScore);
         return [
             'winners' => $winners,
             'highestScore' => $highestScore,

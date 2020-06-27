@@ -7,13 +7,13 @@ namespace App\Domain\Judge\Service;
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Judge\JudgeType;
 
-class JudgeGenerator
+final class JudgeGenerator
 {
-    public function generateForContest(ContestInterface $contest) : void
+    public function generateForContest(ContestInterface $contest): void
     {
         $judgesType = JudgeType::getEnumerators();
 
-        shuffle($judgesType);
+        \shuffle($judgesType);
 
         $judges = [];
 

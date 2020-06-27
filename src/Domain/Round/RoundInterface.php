@@ -12,13 +12,13 @@ interface RoundInterface
     public const SCORE_INDEX_MIN = 0.1;
     public const SCORE_INDEX_MAX = 10;
 
-    public function musicGenre() : MusicGenre;
+    public function musicGenre(): MusicGenre;
 
-    public function number() : int;
+    public function number(): int;
 
-    public function addRoundContestant(RoundContestantInterface $roundContestant) : void;
+    public function addRoundContestant(RoundContestantInterface $roundContestant): void;
 
-    public function finish() : void;
+    public function finish(): void;
 
-    public function isLastRound() : bool;
+    public function isLastRound(): bool;
 }

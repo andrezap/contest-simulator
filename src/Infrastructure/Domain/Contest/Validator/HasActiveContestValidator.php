@@ -18,7 +18,7 @@ class HasActiveContestValidator extends ConstraintValidator
         $this->contestRepository = $contestRepository;
     }
 
-    public function validate($value, Constraint $constraint) : void
+    public function validate($value, Constraint $constraint): void
     {
         if (! $constraint instanceof HasActiveContest) {
             throw new UnexpectedTypeException($constraint, HasActiveContest::class);

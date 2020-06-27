@@ -9,15 +9,17 @@ use App\Domain\MusicGenre\MusicGenre;
 
 interface ContestantInterface
 {
-    public static function createForContest(ContestInterface $contest) : self;
+    public const PERCENTAGE_CHANCE_TO_BECOME_SICK = 5;
 
-    public function id() : string;
+    public function id(): string;
 
-    public function genreStrengths() : array;
+    public function name(): string;
 
-    public function genreStrength(MusicGenre $musicGenre) : float;
+    public function genreStrengths(): array;
 
-    public function markAsWinner() : void;
+    public function genreStrength(MusicGenre $musicGenre): float;
 
-    public function contest() : ContestInterface;
+    public function markAsWinner(): void;
+
+    public function contest(): ContestInterface;
 }

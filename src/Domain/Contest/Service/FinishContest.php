@@ -22,7 +22,7 @@ final class FinishContest
         $this->contestRepository    = $contestRepository;
     }
 
-    public function execute(ContestInterface $contest) : void
+    public function execute(ContestInterface $contest): void
     {
         $contest->finish();
 

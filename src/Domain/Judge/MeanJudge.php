@@ -10,7 +10,7 @@ final class MeanJudge implements JudgeInterface
 {
     private const NAME = 'Mean Judge';
 
-    public function calculateScore(RoundContestantInterface $roundContestant) : int
+    public function calculateScore(RoundContestantInterface $roundContestant): int
     {
         $contestantScore = $roundContestant->score();
 
@@ -21,7 +21,7 @@ final class MeanJudge implements JudgeInterface
         return 10;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return self::NAME;
     }

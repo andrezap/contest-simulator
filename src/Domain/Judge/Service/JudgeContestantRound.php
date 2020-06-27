@@ -11,16 +11,15 @@ use App\Domain\RoundContestant\RoundContestantInterface;
 
 final class JudgeContestantRound
 {
-    public function execute(ContestInterface $contest, RoundContestantInterface $roundContestant) : void
+    public function execute(ContestInterface $contest, RoundContestantInterface $roundContestant): void
     {
         $judgeScore = 0;
 
-        foreach ($contest->getJudges() as $judge) {
-            $judge      = JudgeFactory::build(JudgeType::byValue($judge));
+        foreach ($contest->judges() as $judge) {
+            $judge       = JudgeFactory::build(JudgeType::byValue($judge));
             $judgeScore += $judge->calculateScore($roundContestant);
         }
 
-        //missing sick round
         $roundContestant->setFinalScore($judgeScore);
     }
 }

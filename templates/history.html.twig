@@ -2,15 +2,19 @@
 
 {% block body %}
   <main role="main" class="inner cover">
-    <h1 class="cover-heading">Contest created!</h1>
-    <ul>
-      {% for winner in history.winners %}
-        <li>{{ winner.id }}</li>
-      {% endfor %}
-    </ul>
+    {% if history.winners is not empty %}
+      <h1 class="cover-heading">Last 5 winners!</h1>
+      <ul>
+        {% for winner in history.winners %}
+          <li>{{ winner[0].name }} - {{ winner[1] }} points</li>
+        {% endfor %}
+      </ul>
 
-    <p>TOP CONTESTANT</p>
-    {{ history.highestScore[0].id }}
-    {{ history.highestScore['fs'] }}
+      <h1 class="cover-heading">TOP CONTESTANT</h1>
+      {{ history.highestScore[0].name }} -
+      {{ history.highestScore['fs'] }} points
+    {% else %}
+      No history
+    {% endif %}
   </main>
 {% endblock body %}

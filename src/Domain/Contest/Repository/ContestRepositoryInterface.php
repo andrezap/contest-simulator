@@ -9,9 +9,9 @@ use App\Domain\Contestant\ContestantInterface;
 
 interface ContestRepositoryInterface
 {
-    public function store(ContestInterface $contest) : void;
+    public function store(ContestInterface $contest): void;
 
-    public function hasActive() : bool;
+    public function hasActive(): bool;
 
-    public function findWinner(ContestInterface $contest) : ContestantInterface;
+    public function findWinner(ContestInterface $contest): ContestantInterface;
 }

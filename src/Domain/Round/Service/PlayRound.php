@@ -6,30 +6,26 @@ namespace App\Domain\Round\Service;
 
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Contest\Exception\InvalidContestException;
-use App\Domain\Contest\Service\FinishContest;
 use App\Domain\Judge\Service\JudgeContestantRound;
 use App\Domain\Round\Repository\RoundRepositoryInterface;
+use App\Domain\Round\RoundInterface;
 use App\Domain\RoundContestant\RoundContestant;
 
 final class PlayRound
 {
     private RoundRepositoryInterface $roundRepository;
 
-    private FinishContest $finishContest;
-
     private JudgeContestantRound $judgeContestantRound;
 
     public function __construct(
         RoundRepositoryInterface $roundRepository,
-        FinishContest $finishContest,
         JudgeContestantRound $judgeContestantRound
     ) {
         $this->roundRepository      = $roundRepository;
-        $this->finishContest        = $finishContest;
         $this->judgeContestantRound = $judgeContestantRound;
     }
 
-    public function execute(ContestInterface $contest) : void
+    public function execute(ContestInterface $contest): RoundInterface
     {
         $round = $this->roundRepository->nextRoundForContest($contest);
 
@@ -37,7 +33,7 @@ final class PlayRound
             throw new InvalidContestException();
         }
 
-        foreach ($contest->getContestants() as $contestant) {
+        foreach ($contest->contestants() as $contestant) {
             $roundContestant = RoundContestant::createRoundForContestant($round, $contestant);
 
             $this->judgeContestantRound->execute($contest, $roundContestant);
@@ -45,10 +41,8 @@ final class PlayRound
 
         $round->finish();
 
-        if ($round->isLastRound()) {
-            $this->finishContest->execute($contest);
-        }
-
         $this->roundRepository->store($round);
+
+        return $round;
     }
 }

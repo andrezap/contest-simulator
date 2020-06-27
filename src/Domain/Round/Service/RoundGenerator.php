@@ -10,7 +10,7 @@ use App\Domain\Round\Round;
 
 final class RoundGenerator
 {
-    public function generateForContest(ContestInterface $contest) : void
+    public function generateForContest(ContestInterface $contest): void
     {
         $genders = MusicGenre::getEnumerators();
 

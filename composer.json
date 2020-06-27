@@ -5,6 +5,7 @@
         "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^2.4",
         "marc-mabe/php-enum": "^4.3",
         "ramsey/uuid": "^4.0",
@@ -23,8 +24,10 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^8.0",
+        "symfony/debug-pack": "^1.0",
         "symfony/maker-bundle": "^1.18",
         "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
         "symfony/var-dumper": "5.0.*"
     },
     "config": {

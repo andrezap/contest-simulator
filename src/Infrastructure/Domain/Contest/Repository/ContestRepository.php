@@ -18,13 +18,13 @@ final class ContestRepository extends ServiceEntityRepository implements Contest
         parent::__construct($registry, Contest::class);
     }
 
-    public function store(ContestInterface $contest) : void
+    public function store(ContestInterface $contest): void
     {
         $this->getEntityManager()->persist($contest);
         $this->getEntityManager()->flush();
     }
 
-    public function hasActive() : bool
+    public function hasActive(): bool
     {
         $contest = $this->createQueryBuilder('contest')
             ->where('contest.active = true')
@@ -35,7 +35,7 @@ final class ContestRepository extends ServiceEntityRepository implements Contest
         return $contest['active_contests'] > 0;
     }
 
-    public function findWinner(ContestInterface $contest) : ContestantInterface
+    public function findWinner(ContestInterface $contest): ContestantInterface
     {
         return $this->createQueryBuilder('contest')
             ->innerJoin('contest.contestants', 'contestants')

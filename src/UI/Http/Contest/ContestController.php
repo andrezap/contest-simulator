@@ -6,6 +6,7 @@ namespace App\UI\Http\Contest;
 
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Contest\Service\CreateNewContest;
+use App\Domain\Contest\Service\FinishContest;
 use App\Domain\Round\Service\PlayRound;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,10 +19,13 @@ class ContestController extends AbstractController
 
     private PlayRound $playRound;
 
-    public function __construct(CreateNewContest $createNewContest, PlayRound $playRound)
+    private FinishContest $finishContest;
+
+    public function __construct(CreateNewContest $createNewContest, PlayRound $playRound, FinishContest $finishContest)
     {
         $this->createNewContest = $createNewContest;
         $this->playRound        = $playRound;
+        $this->finishContest    = $finishContest;
     }
 
     public function index(): Response
@@ -60,17 +64,18 @@ class ContestController extends AbstractController
      */
     public function nextRound(ContestInterface $contest): Response
     {
-        if ($contest->isDone()) {
-            return $this->render('finish.html.twig', ['contest' => $contest]);
-        }
-
         try {
-            $this->playRound->execute($contest);
+            $round = $this->playRound->execute($contest);
         } catch (\Throwable $exception) {
-            dump($exception->getMessage());
             return $this->render('error.html.twig', [
                 'message' => $exception->getMessage(),
             ]);
+        }
+
+        if ($round->isLastRound()) {
+            $this->finishContest->execute($contest);
+
+            return $this->render('finish.html.twig', ['contest' => $contest]);
         }
 
         return $this->render('round.html.twig', ['contest' => $contest]);

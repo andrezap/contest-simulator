@@ -39,7 +39,7 @@ final class CreateNewContest
         $this->roundGenerator      = $roundGenerator;
     }
 
-    public function execute() : ContestInterface
+    public function execute(): ContestInterface
     {
         $contest = new Contest();
         $errors  = $this->validator->validate($contest);

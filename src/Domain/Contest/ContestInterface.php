@@ -15,24 +15,24 @@ interface ContestInterface
     public const MAX_NUMBER_CONTESTANTS = 10;
     public const MAX_NUMBER_JUDGES      = 3;
 
-    public function id() : UuidInterface;
+    public function id(): UuidInterface;
 
-    public function addContestant(ContestantInterface $contestant) : void;
+    public function addContestant(ContestantInterface $contestant): void;
 
-    public function addJudges(array $judges) : void;
+    public function addJudges(array $judges): void;
 
-    public function addRound(RoundInterface $round) : void;
+    public function addRound(RoundInterface $round): void;
 
     /**
      * @return ContestantInterface[]|Collection
      */
-    public function getContestants() : Collection;
+    public function contestants(): Collection;
 
-    public function start() : void;
+    public function start(): void;
 
-    public function isDone() : bool;
+    public function isDone(): bool;
 
-    public function finish() : void;
+    public function finish(): void;
 
-    public function getJudges() : array;
+    public function judges(): array;
 }

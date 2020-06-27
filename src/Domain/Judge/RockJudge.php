@@ -11,7 +11,7 @@ final class RockJudge implements JudgeInterface
 {
     private const NAME = 'Rock Judge';
 
-    public function calculateScore(RoundContestantInterface $roundContestant) : int
+    public function calculateScore(RoundContestantInterface $roundContestant): int
     {
         if ($roundContestant->round()->musicGenre()->is(MusicGenre::ROCK)) {
             $contestScore = $roundContestant->score();
@@ -29,10 +29,10 @@ final class RockJudge implements JudgeInterface
             }
         }
 
-        return random_int(0, 10);
+        return \random_int(0, 10);
     }
 
-    public function name() : string
+    public function name(): string
     {
         return self::NAME;
     }

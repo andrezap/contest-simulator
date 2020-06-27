@@ -18,6 +18,8 @@ class Contestant implements ContestantInterface
 {
     private UuidInterface $id;
 
+    private string $name;
+
     /** @var GenreStrength[] */
     private array $genreStrengths;
 
@@ -28,42 +30,32 @@ class Contestant implements ContestantInterface
 
     private bool $winner;
 
-    public function __construct(ContestInterface $contest, array $genreStrength)
+    public function __construct(string $name, array $genreStrength, ContestInterface $contest)
     {
         $this->id               = Uuid::uuid4();
         $this->winner           = false;
         $this->contest          = $contest;
         $this->genreStrengths   = $genreStrength;
+        $this->name             = $name;
         $this->roundsContestant = new ArrayCollection();
     }
 
-    public static function createForContest(ContestInterface $contest) : self
-    {
-        $genres = MusicGenre::getEnumerators();
-
-        shuffle($genres);
-
-        $genresStrength = [];
-
-        foreach ($genres as $genre) {
-            $genreStrength    = new GenreStrength($genre);
-            $genresStrength[] = $genreStrength->asArray();
-        }
-
-        return new self($contest, $genresStrength);
-    }
-
-    public function id() : string
+    public function id(): string
     {
         return $this->id->toString();
     }
 
-    public function genreStrengths() : array
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function genreStrengths(): array
     {
         return $this->genreStrengths;
     }
 
-    public function genreStrength(MusicGenre $musicGenre) : float
+    public function genreStrength(MusicGenre $musicGenre): float
     {
         $contestantGenreStrengths = SearchMultidimensionalArray::searchKey(
             $this->genreStrengths,
@@ -77,14 +69,13 @@ class Contestant implements ContestantInterface
         return $contestantGenreStrengths[$musicGenre->value()];
     }
 
-    public function contest() : ContestInterface
+    public function contest(): ContestInterface
     {
         return $this->contest;
     }
 
-    public function markAsWinner() : void
+    public function markAsWinner(): void
     {
         $this->winner = true;
     }
-
 }
