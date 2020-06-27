@@ -53,13 +53,18 @@ class Round implements RoundInterface
         return $this->number;
     }
 
-    public function addRoundsContestant(RoundContestantInterface $roundsContestant) : void
+    public function addRoundContestant(RoundContestantInterface $roundContestant) : void
     {
-        $this->roundsContestant->add($roundsContestant);
+        $this->roundsContestant->add($roundContestant);
     }
 
     public function finish() : void
     {
         $this->finished = true;
+    }
+
+    public function isLastRound() : bool
+    {
+        return $this->number() === ContestInterface::MAX_NUMBER_ROUNDS;
     }
 }

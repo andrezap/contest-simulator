@@ -21,11 +21,20 @@ class RoundContestant implements RoundContestantInterface
 
     private int $finalScore;
 
-    public function __construct(RoundInterface $round, ContestantInterface $contestant)
+    private function __construct(RoundInterface $round, ContestantInterface $contestant)
     {
         $this->id         = Uuid::uuid4();
         $this->round      = $round;
         $this->contestant = $contestant;
+    }
+
+    public static function createRoundForContestant(RoundInterface $round, ContestantInterface $contestant) : self
+    {
+        $roundContestant = new self($round, $contestant);
+        $roundContestant->calculateScore();
+        $round->addRoundContestant($roundContestant);
+
+        return $roundContestant;
     }
 
     public function calculateScore() : void
@@ -53,5 +62,10 @@ class RoundContestant implements RoundContestantInterface
     public function setFinalScore(int $finalScore) : void
     {
         $this->finalScore = $finalScore;
+    }
+
+    public function finalScore() : int
+    {
+        return $this->finalScore;
     }
 }

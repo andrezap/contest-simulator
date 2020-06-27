@@ -17,3 +17,7 @@ contest_round_play:
 playground:
     path: /play
     controller:  App\UI\PlaygroundController::play
+
+history:
+    path: /history
+    controller: App\UI\Http\History\HistoryController::show

@@ -5,6 +5,7 @@
         "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "gedmo/doctrine-extensions": "^2.4",
         "marc-mabe/php-enum": "^4.3",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^1.6",

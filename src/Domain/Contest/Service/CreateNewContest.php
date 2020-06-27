@@ -13,7 +13,7 @@ use App\Domain\Judge\Service\JudgeGenerator;
 use App\Domain\Round\Service\RoundGenerator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateNewContest
+final class CreateNewContest
 {
     private ValidatorInterface $validator;
 

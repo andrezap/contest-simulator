@@ -14,7 +14,7 @@
 
         <many-to-one field="contestant" target-entity="App\Domain\Contestant\Contestant" inversed-by="roundsContestant">
             <cascade>
-                <cascade-all/>
+                <cascade-persist/>
             </cascade>
             <join-columns>
                 <join-column name="contestant_id" referenced-column-name="id"/>
@@ -23,7 +23,7 @@
 
         <many-to-one field="round" target-entity="App\Domain\Round\Round" inversed-by="roundsContestant">
             <cascade>
-                <cascade-all/>
+                <cascade-persist/>
             </cascade>
             <join-columns>
                 <join-column name="round_id" referenced-column-name="id"/>

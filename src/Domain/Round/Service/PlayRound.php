@@ -6,24 +6,27 @@ namespace App\Domain\Round\Service;
 
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Contest\Exception\InvalidContestException;
-use App\Domain\Contest\Repository\ContestRepositoryInterface;
-use App\Domain\Judge\JudgeFactory;
-use App\Domain\Judge\JudgeType;
+use App\Domain\Contest\Service\FinishContest;
+use App\Domain\Judge\Service\JudgeContestantRound;
 use App\Domain\Round\Repository\RoundRepositoryInterface;
 use App\Domain\RoundContestant\RoundContestant;
 
-class PlayRound
+final class PlayRound
 {
-    private ContestRepositoryInterface $contestRepository;
-
     private RoundRepositoryInterface $roundRepository;
 
+    private FinishContest $finishContest;
+
+    private JudgeContestantRound $judgeContestantRound;
+
     public function __construct(
-        ContestRepositoryInterface $contestRepository,
-        RoundRepositoryInterface $roundRepository
+        RoundRepositoryInterface $roundRepository,
+        FinishContest $finishContest,
+        JudgeContestantRound $judgeContestantRound
     ) {
-        $this->contestRepository = $contestRepository;
-        $this->roundRepository   = $roundRepository;
+        $this->roundRepository      = $roundRepository;
+        $this->finishContest        = $finishContest;
+        $this->judgeContestantRound = $judgeContestantRound;
     }
 
     public function execute(ContestInterface $contest) : void
@@ -35,27 +38,17 @@ class PlayRound
         }
 
         foreach ($contest->getContestants() as $contestant) {
-            $roundContestant = new RoundContestant($round, $contestant);
-            $roundContestant->calculateScore();
-            $round->addRoundsContestant($roundContestant);
+            $roundContestant = RoundContestant::createRoundForContestant($round, $contestant);
 
-            $judgeScore = 0;
-            foreach ($contest->getJudges() as $judge) {
-                $judge      = JudgeFactory::build(JudgeType::byValue($judge));
-                $judgeScore += $judge->calculateScore($roundContestant);
-            }
-
-            //missing sick round
-            $roundContestant->setFinalScore($judgeScore);
+            $this->judgeContestantRound->execute($contest, $roundContestant);
         }
 
         $round->finish();
 
-        if ($round->number() === ContestInterface::MAX_NUMBER_ROUNDS) {
-            $contest->finish();
+        if ($round->isLastRound()) {
+            $this->finishContest->execute($contest);
         }
 
         $this->roundRepository->store($round);
-        $this->contestRepository->store($contest);
     }
 }

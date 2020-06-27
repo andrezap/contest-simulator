@@ -19,7 +19,7 @@
 
         <one-to-many field="roundsContestant" target-entity="App\Domain\RoundContestant\RoundContestant" mapped-by="round">
             <cascade>
-                <cascade-persist/>
+                <cascade-all/>
             </cascade>
         </one-to-many>
     </entity>

@@ -27,10 +27,14 @@ class Contest implements ContestInterface
     /** @var JudgeInterface[] */
     private array $judges;
 
+    /** @var \DateTimeImmutable */
+    protected $createdAt;
+
     public function __construct()
     {
         $this->id          = Uuid::uuid4();
         $this->active      = false;
+        $this->createdAt   = new \DateTime();
         $this->rounds      = new ArrayCollection();
         $this->contestants = new ArrayCollection();
         $this->judges      = [];

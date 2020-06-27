@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Contest created!</h1>
+    <ul>
+      {% for winner in history.winners %}
+        <li>{{ winner.id }}</li>
+      {% endfor %}
+    </ul>
+
+    <p>TOP CONTESTANT</p>
+    {{ history.highestScore[0].id }}
+    {{ history.highestScore['fs'] }}
+  </main>
+{% endblock body %}

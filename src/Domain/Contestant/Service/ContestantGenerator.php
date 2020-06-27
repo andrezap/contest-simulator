@@ -9,10 +9,10 @@ use App\Domain\Contestant\Contestant;
 
 final class ContestantGenerator
 {
-    public function generateForContest(ContestInterface $contest): void
+    public function generateForContest(ContestInterface $contest) : void
     {
         for ($i = 0; $i < $contest::MAX_NUMBER_CONTESTANTS; $i++) {
-            $contestant = new Contestant($contest);
+            $contestant = Contestant::createForContest($contest);
             $contest->addContestant($contestant);
         }
     }

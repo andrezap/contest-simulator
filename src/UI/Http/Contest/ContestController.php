@@ -67,6 +67,7 @@ class ContestController extends AbstractController
         try {
             $this->playRound->execute($contest);
         } catch (\Throwable $exception) {
+            dump($exception->getMessage());
             return $this->render('error.html.twig', [
                 'message' => $exception->getMessage(),
             ]);

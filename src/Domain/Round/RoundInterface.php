@@ -16,7 +16,9 @@ interface RoundInterface
 
     public function number() : int;
 
-    public function addRoundsContestant(RoundContestantInterface $roundsContestant) : void;
+    public function addRoundContestant(RoundContestantInterface $roundContestant) : void;
 
     public function finish() : void;
+
+    public function isLastRound() : bool;
 }
