@@ -15,6 +15,9 @@ final class ContestHistory
         $this->contestantRepository = $contestantRepository;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function execute(): array
     {
         $winners      = $this->contestantRepository->findLastFiveWinners();

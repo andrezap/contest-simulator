@@ -38,6 +38,16 @@ class Round implements RoundInterface
         $this->contest          = $contest;
     }
 
+    public function id(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    public function setIdFromString(string $id): void
+    {
+        $this->id = Uuid::fromString($id);
+    }
+
     public function contest(): ContestInterface
     {
         return $this->contest;
@@ -45,12 +55,7 @@ class Round implements RoundInterface
 
     public function musicGenre(): MusicGenre
     {
-        return MusicGenre::byValue((string) $this->musicGenre);
-    }
-
-    public function number(): int
-    {
-        return $this->number;
+        return MusicGenre::byValue($this->musicGenre);
     }
 
     public function addRoundContestant(RoundContestantInterface $roundContestant): void
@@ -66,5 +71,15 @@ class Round implements RoundInterface
     public function isLastRound(): bool
     {
         return $this->number() === ContestInterface::MAX_NUMBER_ROUNDS;
+    }
+
+    public function number(): int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): void
+    {
+        $this->number = $number;
     }
 }

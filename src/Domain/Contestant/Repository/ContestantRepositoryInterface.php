@@ -13,7 +13,13 @@ interface ContestantRepositoryInterface
 
     public function store(ContestantInterface $contestant): void;
 
+    /**
+     * @return mixed[]
+     */
     public function findLastFiveWinners(): array;
 
+    /**
+     * @return mixed[]
+     */
     public function findHighestScoreForAllContests(): ?array;
 }

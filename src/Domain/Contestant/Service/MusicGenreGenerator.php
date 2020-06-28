@@ -9,6 +9,9 @@ use App\Domain\MusicGenre\MusicGenre;
 
 final class MusicGenreGenerator
 {
+    /**
+     * @return mixed[]
+     */
     public static function random(): array
     {
         $genres = MusicGenre::getEnumerators();

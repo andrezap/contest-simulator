@@ -22,7 +22,7 @@ final class ContestantGenerator
     {
         for ($i = 0; $i < $contest::MAX_NUMBER_CONTESTANTS; $i++) {
             $genreStrength = MusicGenreGenerator::random();
-            $contestant    = new Contestant($this->faker->name, $genreStrength, $contest);
+            $contestant    = new Contestant($this->faker->name, $genreStrength);
             $contest->addContestant($contestant);
         }
     }

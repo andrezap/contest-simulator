@@ -37,6 +37,9 @@ final class ContestantRepository extends ServiceEntityRepository implements Cont
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function findLastFiveWinners(): array
     {
         return $this->createQueryBuilder('contestant')
@@ -52,6 +55,9 @@ final class ContestantRepository extends ServiceEntityRepository implements Cont
             ->getArrayResult();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function findHighestScoreForAllContests(): ?array
     {
         return $this->createQueryBuilder('contestant')

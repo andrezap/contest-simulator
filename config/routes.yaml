@@ -14,10 +14,6 @@ contest_round_play:
     path: /contest/{id}/round/play
     controller: App\UI\Http\Contest\ContestController::nextRound
 
-playground:
-    path: /play
-    controller:  App\UI\PlaygroundController::play
-
 history:
     path: /history
     controller: App\UI\Http\History\HistoryController::show

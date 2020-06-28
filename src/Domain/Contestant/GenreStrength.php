@@ -22,6 +22,9 @@ final class GenreStrength
         $this->score      = $score;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function asArray(): array
     {
         return [

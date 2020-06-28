@@ -10,6 +10,9 @@ class HasActiveContest extends Constraint
 {
     public string $message = 'There is another contest running';
 
+    /**
+     * {@inheritDoc}
+     */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;

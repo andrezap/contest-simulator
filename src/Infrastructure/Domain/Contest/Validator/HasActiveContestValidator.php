@@ -18,6 +18,9 @@ class HasActiveContestValidator extends ConstraintValidator
         $this->contestRepository = $contestRepository;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (! $constraint instanceof HasActiveContest) {

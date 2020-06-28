@@ -30,19 +30,21 @@ class Contestant implements ContestantInterface
 
     private bool $winner;
 
-    public function __construct(string $name, array $genreStrength, ContestInterface $contest)
+    /**
+     * @param GenreStrength[] $genreStrength
+     */
+    public function __construct(string $name, array $genreStrength)
     {
         $this->id               = Uuid::uuid4();
         $this->winner           = false;
-        $this->contest          = $contest;
         $this->genreStrengths   = $genreStrength;
         $this->name             = $name;
         $this->roundsContestant = new ArrayCollection();
     }
 
-    public function id(): string
+    public function id(): UuidInterface
     {
-        return $this->id->toString();
+        return $this->id;
     }
 
     public function name(): string
@@ -50,7 +52,23 @@ class Contestant implements ContestantInterface
         return $this->name;
     }
 
-    public function genreStrengths(): array
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return Collection|RoundContestant[]
+     */
+    public function roundsContestant(): Collection
+    {
+        return $this->roundsContestant;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function allGenreStrengths(): array
     {
         return $this->genreStrengths;
     }
@@ -77,5 +95,15 @@ class Contestant implements ContestantInterface
     public function markAsWinner(): void
     {
         $this->winner = true;
+    }
+
+    public function setIdFromString(string $id): void
+    {
+        $this->id = Uuid::fromString($id);
+    }
+
+    public function setContest(ContestInterface $contest): void
+    {
+        $this->contest = $contest;
     }
 }

@@ -73,9 +73,9 @@ class ContestController extends AbstractController
         }
 
         if ($round->isLastRound()) {
-            $this->finishContest->execute($contest);
+            $winner = $this->finishContest->execute($contest);
 
-            return $this->render('finish.html.twig', ['contest' => $contest]);
+            return $this->render('finish.html.twig', ['contest' => $contest, 'winner' => $winner]);
         }
 
         return $this->render('round.html.twig', ['contest' => $contest]);

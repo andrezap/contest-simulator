@@ -1,0 +1,2 @@
+parameters:
+  app.database.url: "postgres://postgresql:postgresql@postgres:5432/contest_simulator_test"

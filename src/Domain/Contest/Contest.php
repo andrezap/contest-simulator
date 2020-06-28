@@ -44,11 +44,30 @@ class Contest implements ContestInterface
         return $this->id;
     }
 
+    public function setIdFromString(string $id): void
+    {
+        $this->id = Uuid::fromString($id);
+    }
+
+    public function createdAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function addContestant(ContestantInterface $contestant): void
     {
         $this->contestants->add($contestant);
+        $contestant->setContest($this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function addJudges(array $judges): void
     {
         $this->judges = $judges;
@@ -59,6 +78,9 @@ class Contest implements ContestInterface
         $this->rounds->add($round);
     }
 
+    /**
+     * @return Collection|ContestantInterface[]
+     */
     public function contestants(): Collection
     {
         return $this->contestants;
@@ -79,6 +101,9 @@ class Contest implements ContestInterface
         $this->active = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function judges(): array
     {
         return $this->judges;

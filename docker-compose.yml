@@ -2,13 +2,15 @@ version: '3'
 
 services:
   postgres:
-    image: postgres
+    build:
+      context: .docker/db
+    volumes:
+      - /var/lib/postgresql/data
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgresql
       POSTGRES_PASSWORD: postgresql
-
   php:
     container_name: php
     build:
@@ -18,9 +20,9 @@ services:
       - .docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
     environment:
       DATABASE_URL: "postgres://postgresql:postgresql@postgres:5432/contest_simulator"
+      APP_SECRET: "secret"
     links:
       - postgres
-
   nginx:
     container_name: nginx
     build:
