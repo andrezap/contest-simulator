@@ -42,8 +42,8 @@ class ContestantRepositoryTest extends WebTestCase
         $winners = $repository->findLastFiveWinners();
 
         self::assertCount(5, $winners);
-        self::assertEquals(UuidLoader::forIdentifier(7), (string) $winners[0][0]['id']);
-        self::assertEquals(UuidLoader::forIdentifier(3), (string) $winners[4][0]['id']);
+        self::assertEquals(UuidLoader::forIdentifier(7), (string) $winners[0]['id']);
+        self::assertEquals(UuidLoader::forIdentifier(3), (string) $winners[4]['id']);
     }
 
     public function testFindHighestScoreForAllContests(): void
@@ -53,6 +53,6 @@ class ContestantRepositoryTest extends WebTestCase
 
         $contestant = $repository->findHighestScoreForAllContests();
 
-        self::assertSame(UuidLoader::forIdentifier(7), (string) $contestant[0]->id());
+        self::assertSame(UuidLoader::forIdentifier(7), (string) $contestant['id']);
     }
 }

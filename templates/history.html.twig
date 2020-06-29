@@ -6,13 +6,13 @@
       <h1 class="cover-heading">Last 5 winners!</h1>
       <ul>
         {% for winner in history.winners %}
-          <li>{{ winner[0].name }} - {{ winner[1] }} points</li>
+          <li>{{ winner['name'] }} - {{ winner['score'] }} points</li>
         {% endfor %}
       </ul>
 
-      <h1 class="cover-heading">TOP CONTESTANT</h1>
-      {{ history.highestScore[0].name }} -
-      {{ history.highestScore['fs'] }} points
+      <h1 class="cover-heading">TOP WINNER</h1>
+      {{ history.topWinner['name'] }} -
+      {{ history.topWinner['score'] }} points
     {% else %}
       No history
     {% endif %}

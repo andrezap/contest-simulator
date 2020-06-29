@@ -7,12 +7,12 @@ namespace App\Domain\Contestant\Service;
 use App\Domain\Contestant\GenreStrength;
 use App\Domain\MusicGenre\MusicGenre;
 
-final class MusicGenreGenerator
+final class GenreStrengthGenerator
 {
     /**
      * @return mixed[]
      */
-    public static function random(): array
+    public static function execute(): array
     {
         $genres = MusicGenre::getEnumerators();
 

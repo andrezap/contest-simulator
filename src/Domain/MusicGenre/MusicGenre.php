@@ -6,6 +6,14 @@ namespace App\Domain\MusicGenre;
 
 use MabeEnum\Enum;
 
+/**
+ * @method static MusicGenre ROCK()
+ * @method static MusicGenre COUNTRY()
+ * @method static MusicGenre POP()
+ * @method static MusicGenre DISCO()
+ * @method static MusicGenre JAZZ()
+ * @method static MusicGenre BLUE()
+ */
 class MusicGenre extends Enum
 {
     public const ROCK    = 'ROCK';

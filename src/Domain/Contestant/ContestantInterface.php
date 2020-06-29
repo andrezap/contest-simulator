@@ -42,4 +42,6 @@ interface ContestantInterface
     public function contest(): ContestInterface;
 
     public function setContest(ContestInterface $contest): void;
+
+    public function isWinner(): bool;
 }

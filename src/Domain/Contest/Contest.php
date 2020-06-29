@@ -17,7 +17,7 @@ class Contest implements ContestInterface
     private UuidInterface $id;
 
     /** @var Collection|RoundInterface[] */
-    private Collection $rounds;
+    private ?Collection $rounds;
 
     /** @var Collection|ContestantInterface[] */
     private Collection $contestants;
@@ -91,6 +91,11 @@ class Contest implements ContestInterface
         $this->active = true;
     }
 
+    public function active(): bool
+    {
+        return $this->active;
+    }
+
     public function isDone(): bool
     {
         return $this->active === false;
@@ -107,5 +112,10 @@ class Contest implements ContestInterface
     public function judges(): array
     {
         return $this->judges;
+    }
+
+    public function rounds(): ?Collection
+    {
+        return $this->rounds;
     }
 }

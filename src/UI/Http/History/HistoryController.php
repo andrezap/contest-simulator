@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\UI\Http\History;
 
-use App\Domain\Contest\Service\ContestHistory;
+use App\Domain\History\Service\CreateHistory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 final class HistoryController extends AbstractController
 {
-    private ContestHistory $contestHistory;
+    private CreateHistory $history;
 
-    public function __construct(ContestHistory $contestHistory)
+    public function __construct(CreateHistory $history)
     {
-        $this->contestHistory = $contestHistory;
+        $this->history = $history;
     }
 
     public function show(): Response
     {
-        $history = $this->contestHistory->execute();
+        $history = $this->history->execute();
 
         return $this->render('history.html.twig', ['history' => $history]);
     }

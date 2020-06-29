@@ -8,6 +8,6 @@ final class InvalidContestException extends \RuntimeException
 {
     public function __construct(?\Throwable $previous = null)
     {
-        parent::__construct('Contest has an invalid state ', 0, $previous);
+        parent::__construct('Contest has an invalid state.', 0, $previous);
     }
 }

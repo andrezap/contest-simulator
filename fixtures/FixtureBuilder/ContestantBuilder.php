@@ -6,7 +6,7 @@ namespace App\FixtureBuilder;
 
 use App\Domain\Contestant\Contestant;
 use App\Domain\Contestant\ContestantInterface;
-use App\Domain\Contestant\Service\MusicGenreGenerator;
+use App\Domain\Contestant\Service\GenreStrengthGenerator;
 use App\FixtureBuilder\Loaders\UuidLoader;
 
 final class ContestantBuilder
@@ -17,7 +17,7 @@ final class ContestantBuilder
 
     private function __construct()
     {
-        $genreStrength    = MusicGenreGenerator::random();
+        $genreStrength    = GenreStrengthGenerator::execute();
         $this->contestant = new Contestant(self::DEFAULT_NAME, $genreStrength);
     }
 

@@ -7,6 +7,7 @@ namespace App\FixtureBuilder;
 use App\Domain\Contest\Contest;
 use App\Domain\Contest\ContestInterface;
 use App\Domain\Contestant\ContestantInterface;
+use App\FixtureBuilder\Loaders\RoundContestantBuilder;
 use App\FixtureBuilder\Loaders\UuidLoader;
 
 final class ContestBuilder
@@ -33,19 +34,19 @@ final class ContestBuilder
         return $this->contest;
     }
 
-    public function withId(int $identifier) : self
-    {
-        $this->contest->setIdFromString(UuidLoader::forIdentifier($identifier));
-
-        return $this;
-    }
-
     public static function forIdentifier(int $identifier) : self
     {
         $self = new self();
         $self->withId($identifier);
 
         return $self;
+    }
+
+    public function withId(int $identifier) : self
+    {
+        $this->contest->setIdFromString(UuidLoader::forIdentifier($identifier));
+
+        return $this;
     }
 
     public function withCreatedAt(\DateTimeImmutable $createdAt) : self

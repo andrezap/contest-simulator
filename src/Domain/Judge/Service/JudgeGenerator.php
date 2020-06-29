@@ -11,14 +11,14 @@ final class JudgeGenerator
 {
     public function generateForContest(ContestInterface $contest): void
     {
-        $judgesType = JudgeType::getEnumerators();
+        $judgesType = JudgeType::getValues();
 
         \shuffle($judgesType);
 
         $judges = [];
 
         for ($i = 0; $i < ContestInterface::MAX_NUMBER_JUDGES; $i++) {
-            $judges[] = $judgesType[$i]->value();
+            $judges[] = $judgesType[$i];
         }
 
         $contest->addJudges($judges);

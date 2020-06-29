@@ -21,7 +21,7 @@ final class ContestantGenerator
     public function generateForContest(ContestInterface $contest): void
     {
         for ($i = 0; $i < $contest::MAX_NUMBER_CONTESTANTS; $i++) {
-            $genreStrength = MusicGenreGenerator::random();
+            $genreStrength = GenreStrengthGenerator::execute();
             $contestant    = new Contestant($this->faker->name, $genreStrength);
             $contest->addContestant($contestant);
         }

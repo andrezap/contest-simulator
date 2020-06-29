@@ -8,6 +8,7 @@ use App\Domain\Contest\ContestInterface;
 use App\Domain\Contestant\Exception\NotFoundContestantGenreStrength;
 use App\Domain\MusicGenre\MusicGenre;
 use App\Domain\RoundContestant\RoundContestant;
+use App\Domain\RoundContestant\RoundContestantInterface;
 use App\Util\SearchMultidimensionalArray;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,7 +24,7 @@ class Contestant implements ContestantInterface
     /** @var GenreStrength[] */
     private array $genreStrengths;
 
-    /** @var Collection|RoundContestant[] */
+    /** @var Collection|RoundContestantInterface[] */
     private Collection $roundsContestant;
 
     private ContestInterface $contest;
@@ -105,5 +106,10 @@ class Contestant implements ContestantInterface
     public function setContest(ContestInterface $contest): void
     {
         $this->contest = $contest;
+    }
+
+    public function isWinner(): bool
+    {
+        return $this->winner;
     }
 }

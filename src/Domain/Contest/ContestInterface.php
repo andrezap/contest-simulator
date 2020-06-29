@@ -51,4 +51,11 @@ interface ContestInterface
      * @return JudgeInterface[]
      */
     public function judges(): array;
+
+    public function active(): bool;
+
+    /**
+     * @return RoundInterface[]
+     */
+    public function rounds(): ?Collection;
 }

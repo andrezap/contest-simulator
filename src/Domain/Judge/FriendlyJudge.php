@@ -12,7 +12,21 @@ final class FriendlyJudge implements JudgeInterface
 
     public function calculateScore(RoundContestantInterface $roundContestant): int
     {
-        return 0;
+        $score            = $roundContestant->score();
+        $contestantIsSick = $roundContestant->isSick();
+        $finalScore       = null;
+
+        if ($score <= 3) {
+            $finalScore = 7;
+        } else {
+            $finalScore = 8;
+        }
+
+        if ($contestantIsSick === true) {
+            ++$finalScore;
+        }
+
+        return $finalScore;
     }
 
     public function name(): string

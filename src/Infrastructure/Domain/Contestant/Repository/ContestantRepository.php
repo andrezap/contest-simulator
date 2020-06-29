@@ -43,7 +43,7 @@ final class ContestantRepository extends ServiceEntityRepository implements Cont
     public function findLastFiveWinners(): array
     {
         return $this->createQueryBuilder('contestant')
-            ->select('SUM(rc.finalScore), contestant')
+            ->select('SUM(rc.finalScore) as score, contestant.name as name, contestant.id as id')
             ->innerJoin('contestant.roundsContestant', 'rc')
             ->innerJoin('contestant.contest', 'contest')
             ->where('contest.active = false')
@@ -61,12 +61,12 @@ final class ContestantRepository extends ServiceEntityRepository implements Cont
     public function findHighestScoreForAllContests(): ?array
     {
         return $this->createQueryBuilder('contestant')
-            ->select('SUM(rc.finalScore) as fs, contestant')
+            ->select('SUM(rc.finalScore) as score, contestant.id as id, contestant.name as name')
             ->innerJoin('contestant.roundsContestant', 'rc')
             ->innerJoin('contestant.contest', 'contest')
             ->where('contest.active = false')
             ->groupBy('contestant.id')
-            ->orderBy('fs', 'DESC')
+            ->orderBy('score', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

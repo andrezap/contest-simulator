@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Contest\Service;
+namespace App\Domain\History\Service;
 
 use App\Domain\Contestant\Repository\ContestantRepositoryInterface;
+use App\Domain\History\History;
 
-final class ContestHistory
+final class CreateHistory
 {
     private ContestantRepositoryInterface $contestantRepository;
 
@@ -20,12 +21,11 @@ final class ContestHistory
      */
     public function execute(): array
     {
-        $winners      = $this->contestantRepository->findLastFiveWinners();
-        $highestScore = $this->contestantRepository->findHighestScoreForAllContests();
+        $winners   = $this->contestantRepository->findLastFiveWinners();
+        $topWinner = $this->contestantRepository->findHighestScoreForAllContests();
 
-        return [
-            'winners' => $winners,
-            'highestScore' => $highestScore,
-        ];
+        $history = new History($winners, $topWinner);
+
+        return $history->toArray();
     }
 }

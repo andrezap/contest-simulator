@@ -18,7 +18,7 @@ class RoundRepository extends ServiceEntityRepository implements RoundRepository
         parent::__construct($registry, Round::class);
     }
 
-    public function nextRoundForContest(ContestInterface $contest): ?Round
+    public function nextRoundForContest(ContestInterface $contest): ?RoundInterface
     {
         $nextRound = $this->createQueryBuilder('round')
             ->where('round.finished = false')

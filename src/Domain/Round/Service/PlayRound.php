@@ -27,9 +27,13 @@ final class PlayRound
 
     public function execute(ContestInterface $contest): RoundInterface
     {
+        if ($contest->isDone()) {
+            throw new InvalidContestException();
+        }
+
         $round = $this->roundRepository->nextRoundForContest($contest);
 
-        if ($round === null || $contest->isDone()) {
+        if ($round === null) {
             throw new InvalidContestException();
         }
 
