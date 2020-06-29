@@ -11,7 +11,7 @@ To run please follow the instruction bellow:
 1. docker-compose up -d
 2. docker-compose exec --user 1000:1000 php fish
 3. composer install
-4. php bin/console d:m:m
+4. php bin/console doctrine:migrations:migrate 
 
 ## Usage
 
